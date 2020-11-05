@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% load static %}
+
+        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+        <link rel="icon" type="image/png"          href="{% static 'assets/img/favicon.png'    %}">
+
+        <title>
+            Options Tracker - {% block title %}{% endblock %} 
+        </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+        <!-- Nucleo Icons -->
+        <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+        <!-- CSS Files -->
+        <link href="{% static 'assets/css/black-dashboard.css' %}" rel="stylesheet" />
+
+        <!-- Specific Page CSS goes HERE  -->
+        {% block stylesheets %}{% endblock stylesheets %}
+
+    </head>
+
+    <body class="">
+        <div class="wrapper">
+            <div class="sidebar" data="dark">
+                  <div class="sidebar-wrapper">
+                    
+                    {# <div class="logo"> #}
+                    {#   <a target="_blank"  #}
+                    {#      href="https://www.creative-tim.com/product/black-dashboard-django" class="simple-text logo-mini"> #}
+                    {#     BD #}
+                    {#   </a> #}
+                    {#   <a target="_blank"  #}
+                    {#      href="https://www.creative-tim.com/product/black-dashboard-django" class="simple-text logo-normal"> #}
+                    {#     Django Dashboard #}
+                    {#   </a> #}
+                    {# </div> #}
+
+                    <ul class="nav">
+                      <li class="{% block nav_home %}{% endblock %}">
+                        <a href="/">
+                          <i class="tim-icons icon-chart-pie-36"></i>
+                          <p>Dashboard</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ui-icons.html">
+                          <i class="tim-icons icon-atom"></i>
+                          <p>Icons</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ui-maps.html">
+                          <i class="tim-icons icon-pin"></i>
+                          <p>Maps</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ui-notifications.html">
+                          <i class="tim-icons icon-bell-55"></i>
+                          <p>Notifications</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/page-user.html">
+                          <i class="tim-icons icon-single-02"></i>
+                          <p>User Profile</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ui-tables.html">
+                          <i class="tim-icons icon-puzzle-10"></i>
+                          <p>Table List</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ui-typography.html">
+                          <i class="tim-icons icon-align-center"></i>
+                          <p>Typography</p>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/page-rtl-support.html">
+                          <i class="tim-icons icon-world"></i>
+                          <p>RTL Support</p>
+                        </a>
+                      </li>
+
+                      <li class="active-pro">
+                        <a href="#" >
+                          <i class="tim-icons icon-user-run"></i>
+                          <p>Logout</p>
+                        </a>
+                      </li>
+                    </ul>
+                    
+                  </div>
+            </div>
+
+            <div class="main-panel">
+                {% include 'includes/navigation.html' %}
+
+                <div class="content">
+                    {% block content %}{% endblock content %}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!--   Core JS Files   -->
+        <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+        <!-- Chart JS -->
+        <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
+        <!--  Notifications Plugin    -->
+        <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
+        <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="{% static 'assets/js/black-dashboard.min.js' %}"></script>
+
+        {# {% include 'includes/scripts-sidebar.html' %} #}
+
+        <!-- Specific Page JS goes HERE  -->
+        {% block javascripts %}{% endblock javascripts %}
+
+    </body>
+
+</html>
