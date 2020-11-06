@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 
     'strategies.apps.StrategiesConfig',
     'frontend.apps.FrontendConfig',
+    'users.apps.UsersConfig',
+
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +127,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

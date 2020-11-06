@@ -20451,3 +20451,22 @@ Copyright (c) 2015 Daniel Eden
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+
+/* The emerging W3C standard
+ *    that is currently Firefox-only */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: black transparent;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+    width: 6px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: #525f7f;
+    border-radius: 10px;
+}
