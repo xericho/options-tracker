@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'strategies.apps.StrategiesConfig',
     'frontend.apps.FrontendConfig',
     'users.apps.UsersConfig',
+    'brokerage.apps.BrokerageConfig',
 
     'crispy_forms',
 ]

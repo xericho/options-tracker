@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Manage Brokers {% endblock %} 
+
+{% block nav_broker %}
+    active
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+   <div class="row">
+       <div class="col-12">
+           <div class="card">
+               <div class="card-header">
+                    <h2 class="card-title">Manage Brokers</h2>
+               </div>
+               <div class="card-body">
+                    <a href="{% url 'broker_add' %}" class="btn btn-primary mb-4">Add</a>
+                    {% if brokers %}
+                        {% for broker in brokers %}
+                        <div class="card" style="width: 20rem; background: #313346">
+                           <div class="card-body">
+                               <h4 class="card-title">{{ broker.name }}</h4>
+                               <h6 class="card-subtitle mb-2 text-muted">${{ broker.amount }}</h6>
+                               <p class="card-text"></p>
+                               <a href="{% url 'broker_update' broker.id %}" class="card-link">Update</a>
+                               <a href="{% url 'broker_delete' broker.id %}" class="card-link">Delete</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <h3>No brokers available.</h3>
+                    {% endif %}
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock javascripts %}
