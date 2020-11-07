@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
+from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Broker
@@ -22,13 +23,13 @@ class BrokerCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('broker_add')
+        return reverse('broker:manage')
 
 
 class BrokerUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Broker
     success_message = 'Broker updated!'
-    success_url = reverse_lazy('broker_add')
+    success_url = reverse_lazy('broker:manage')
     template_name = 'brokerage/update.html'
     fields = ('name', 'amount')
 
@@ -36,8 +37,11 @@ class BrokerUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 class BrokerDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Broker
     success_message = 'Broker deleted!'
-    success_url = reverse_lazy('broker_add')
     template_name = 'brokerage/delete.html'
+
+    def get_success_url(self):
+        messages.success(self.request, self.success_message)
+        return reverse('broker:manage')
 
 
 def manage(request):

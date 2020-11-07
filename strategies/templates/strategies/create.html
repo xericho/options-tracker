@@ -2,9 +2,9 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %} Add Broker {% endblock %} 
+{% block title %} Add {{ type }} Option {% endblock %} 
 
-{% block nav_broker %}
+{% block nav_strategies %}
     active
 {% endblock %}
 
@@ -16,7 +16,7 @@
        <div class="col-12">
            <div class="card">
                <div class="card-header">
-                    <h2 class="card-title">Add Broker</h2>
+                   <h2 class="card-title">Add {{ type }} Option</h2>
                </div>
                <div class="card-body">
                    <form method="post">

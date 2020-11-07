@@ -4,7 +4,7 @@
 
 {% block title %} Delete Broker {% endblock %} 
 
-{% block nav_broker_delete %}
+{% block nav_broker %}
     active
 {% endblock %}
 
@@ -19,6 +19,7 @@
                     <h2 class="card-title">Delete Broker</h2>
                </div>
                <div class="card-body">
+                   <p class="pb-4">Are you sure you want to delete {{ object.name }}?</p>
                    <form method="post">
                        {% csrf_token %}
                        {{ form|crispy }}
