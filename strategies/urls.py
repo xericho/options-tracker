@@ -4,7 +4,7 @@ from .views import *
 app_name = 'strategies'
 
 urlpatterns = [
-    # path('manage/', manage, name='manage'),
+    path('manage/', manage, name='manage'),
 
     path('basic/add/', BasicOptionCreateView.as_view(), name='add_basic'),
     path('basic/update/<int:pk>/', BasicOptionUpdateView.as_view(), name='update_basic'),

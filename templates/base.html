@@ -57,16 +57,10 @@
                           <p>Brokers</p>
                         </a>
                       </li>
-                      <li class="{% block nav_strategies_basic %}{% endblock %}">
-                        <a href="{% url 'strategies:add_basic' %}">
+                      <li class="{% block nav_strategies %}{% endblock %}">
+                        <a href="{% url 'strategies:manage' %}">
                           <i class="tim-icons icon-chart-pie-36"></i>
-                          <p>Add Call/Put</p>
-                        </a>
-                      </li>
-                      <li class="{% block nav_strategies_spread %}{% endblock %}">
-                        <a href="{% url 'strategies:add_spread' %}">
-                          <i class="tim-icons icon-chart-pie-36"></i>
-                          <p>Add Spread</p>
+                          <p>Options</p>
                         </a>
                       </li>
 

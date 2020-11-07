@@ -5,9 +5,26 @@ from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+import json
 
 from .models import BasicOption, SpreadOption
 from .forms import BasicOptionForm, SpreadOptionForm
+
+
+def manage(request):
+    basic_fields = ('ticker', 'open_date', 'close_date', 'exp_date',
+              'longshort', 'callput', 'strike', 'premium',
+              'quantity', 'stock_price','fees', 'broker', 'status')
+    basics = list(BasicOption.objects.filter(user=request.user).values(*basic_fields))
+    spread_fields = ('ticker', 'open_date', 'close_date', 'exp_date',
+              'creditdebit', 'callput', 'strike1', 'strike2',
+              'premium', 'quantity', 'stock_price','fees', 'broker', 'status')
+    spreads = list(SpreadOption.objects.filter(user=request.user).values(*spread_fields))
+
+    return render(request, 'strategies/manage.html', {
+        'basics': basics,
+        'spreads': spreads,
+    })
 
 
 class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
