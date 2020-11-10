@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'brokerage.apps.BrokerageConfig',
 
     'crispy_forms',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
