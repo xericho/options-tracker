@@ -22,7 +22,7 @@
                     <a href="{% url 'broker:add' %}" class="btn btn-primary mb-4">Add</a>
                     {% if brokers %}
                         {% for broker in brokers %}
-                        <div class="card" style="width: 20rem; background: #313346">
+                        <div class="card" style="width: 20rem; background: #2e2f32">
                            <div class="card-body">
                                <h4 class="card-title">{{ broker.name }}</h4>
                                <h6 class="card-subtitle mb-2 text-muted">${{ broker.amount }}</h6>

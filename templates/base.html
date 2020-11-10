@@ -14,93 +14,122 @@
             Options Tracker - {% block title %}{% endblock %} 
         </title>
 
-        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
-        <!-- Nucleo Icons -->
-        <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
-        <!-- CSS Files -->
-        <link href="{% static 'assets/css/black-dashboard.css' %}" rel="stylesheet" />
-        <link href="{% static 'assets/css/toastr.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/corona/materialdesignicons.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/corona/vendor.bundle.base.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/corona/style.css' %}" rel="stylesheet" />
 
         <!-- Specific Page CSS goes HERE  -->
         {% block stylesheets %}{% endblock stylesheets %}
 
     </head>
 
-    <body class="">
-        <div class="wrapper">
-            <div class="sidebar" data="dark">
-                  <div class="sidebar-wrapper">
-                    
-                    {# <div class="logo"> #}
-                    {#   <a target="_blank"  #}
-                    {#      href="https://www.creative-tim.com/product/black-dashboard-django" class="simple-text logo-mini"> #}
-                    {#     BD #}
-                    {#   </a> #}
-                    {#   <a target="_blank"  #}
-                    {#      href="https://www.creative-tim.com/product/black-dashboard-django" class="simple-text logo-normal"> #}
-                    {#     Django Dashboard #}
-                    {#   </a> #}
-                    {# </div> #}
-
-                    <ul class="nav">
-                      <li class="{% block nav_home %}{% endblock %}">
-                        <a href="{% url 'home' %}">
-                          <i class="tim-icons icon-chart-pie-36"></i>
-                          <p>Dashboard</p>
-                        </a>
-                      </li>
-                      <li class="{% block nav_broker %}{% endblock %}">
-                        <a href="{% url 'broker:manage' %}">
-                          <i class="tim-icons icon-chart-pie-36"></i>
-                          <p>Brokers</p>
-                        </a>
-                      </li>
-                      <li class="{% block nav_strategies %}{% endblock %}">
-                        <a href="{% url 'strategies:manage' %}">
-                          <i class="tim-icons icon-chart-pie-36"></i>
-                          <p>Options</p>
-                        </a>
-                      </li>
-
-                      {# <li class="active-pro"> #}
-                      {#     <a href="{% url 'logout' %}"> #}
-                      {#     <i class="tim-icons icon-user-run"></i> #}
-                      {#     <p>Logout</p> #}
-                      {#   </a> #}
-                      {# </li> #}
-                    </ul>
-                    
-                  </div>
-            </div>
-
-            <div class="main-panel">
-                {% include 'includes/navigation.html' %}
-
-                <div class="content">
-                    {% block content %}{% endblock content %}
+    <body>
+        <div class="container-scroller">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <div class="text-center sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+                    <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'assets/img/logo.svg' %}" alt="logo"></a>
+                    <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'assets/img/logo-mini.svg' %}" alt="logo"></a>
                 </div>
+                <ul class="nav">
+                    <li class="nav-item account-dropdown">
+                    <a class="nav-link" data-toggle="collapse" href="#account-dropdown" aria-expanded="false" aria-controls="account-dropdown">
+                        <img class="img-xs rounded-circle" src="{% static 'assets/img/pic-1.png' %}" alt="">
+                        <p class="mb-0 text-light">{{ user.username }}</p>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="account-dropdown">
+                        <ul class="nav flex-column sub-menu pl-0">
+                        <li class="nav-item">
+                            <a class="nav-link pl-5" href="{% url 'logout' %}">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-power"></i>
+                            </span>
+                            <span class="menu-title">Logout</span>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
+                    </li>
+                    <li class="nav-item nav-category">
+                    <span class="nav-link">Navigation</span>
+                    </li>
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <span class="menu-icon">
+                            <i class="mdi mdi-speedometer"></i>
+                            </span>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="{% url 'broker:manage' %}">
+                            <span class="menu-icon">
+                            <i class="mdi mdi-speedometer"></i>
+                            </span>
+                            <span class="menu-title">Brokers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="{% url 'strategies:manage' %}">
+                            <span class="menu-icon">
+                            <i class="mdi mdi-speedometer"></i>
+                            </span>
+                            <span class="menu-title">Options</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
+
+            <div class="container-fluid page-body-wrapper">
+                <nav class="navbar p-0 fixed-top d-flex flex-row">
+                    <div class="text-center navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                    <a class="navbar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'assets/img/logo-mini.svg' %}" alt="logo"></a>
+                    </div>
+                    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-format-line-spacing"></span>
+                    </button>
+                    <ul class="navbar-nav w-100">
+                        <li class="nav-item w-100">
+                        <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                            <input type="text" class="form-control" placeholder="Search Here..">
+                        </form>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-format-line-spacing"></span>
+                    </button>
+                    </div>
+                </nav>
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        {% block content %}{% endblock content %}
+                    </div>
+                    {# <footer class="footer"> #}
+                    {#     <div class="d-sm-flex justify-content-center justify-content-sm-between"> #}
+                    {#     <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span> #}
+                    {#     <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span> #}
+                    {#     </div> #}
+                    {# </footer> #}
+                </div>
             </div>
 
         </div>
 
 
         <!--   Core JS Files   -->
-        <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
-        <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
-        <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
-        <script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-        <!-- Chart JS -->
-        <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
-        <!--  Notifications Plugin    -->
-        <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
-        <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="{% static 'assets/js/black-dashboard.min.js' %}"></script>
+        <script src="{% static 'assets/js/corona/vendor.bundle.base.js' %}"></script>
+        <script src="{% static 'assets/js/corona/off-canvas.js' %}"></script>
+        <script src="{% static 'assets/js/corona/hoverable-collapse.js' %}"></script>
+        <script src="{% static 'assets/js/corona/misc.js' %}"></script>
+        <script src="{% static 'assets/js/corona/settings.js' %}"></script>
+        <script src="{% static 'assets/js/corona/todolist.js' %}"></script>
         <script src="{% static 'assets/js/toastr.min.js' %}"></script>
 
-        {# {% include 'includes/scripts-sidebar.html' %} #}
         <script>
 
             toastr.options = {

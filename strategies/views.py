@@ -5,26 +5,58 @@ from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
+from django.http import Http404
 import json
 
 from .models import BasicOption, SpreadOption
 from .forms import BasicOptionForm, SpreadOptionForm
 
 
+@login_required
 def manage(request):
-    basic_fields = ('ticker', 'open_date', 'close_date', 'exp_date',
-              'longshort', 'callput', 'strike', 'premium',
-              'quantity', 'stock_price','fees', 'broker', 'status')
-    basics = list(BasicOption.objects.filter(user=request.user).values(*basic_fields))
-    spread_fields = ('ticker', 'open_date', 'close_date', 'exp_date',
-              'creditdebit', 'callput', 'strike1', 'strike2',
-              'premium', 'quantity', 'stock_price','fees', 'broker', 'status')
-    spreads = list(SpreadOption.objects.filter(user=request.user).values(*spread_fields))
+    return render(request, 'strategies/manage.html', {})
 
-    return render(request, 'strategies/manage.html', {
-        'basics': basics,
-        'spreads': spreads,
+
+@login_required
+@api_view(['GET'])
+def get_options(request):
+    option_type = request.query_params.get('option_type')
+    if option_type == 'basic':
+        fields = ['ticker', 'id', 'open_date', 'close_date', 'exp_date',
+                  'longshort', 'callput', 'strike', 'premium',
+                  'quantity', 'stock_price', 'fees', 'broker', 'status']
+        headers = ['Ticker', 'ID', 'Open Date', 'Close Date', 'Exp Date', 'Long/Short',
+                   'Call/Put', 'Strike', 'Premium', '#', 'Stock Price', 'Fees',
+                   'Broker', 'Status']
+        data = list(BasicOption.objects.filter(user=request.user).values(*fields))
+    elif option_type == 'spreads':
+        fields = ['ticker', 'id', 'open_date', 'close_date', 'exp_date',
+                  'creditdebit', 'callput', 'strike1', 'strike2',
+                  'premium', 'quantity', 'stock_price','fees', 'broker', 'status']
+        headers = ['Ticker', 'ID', 'Open Date', 'Close Date', 'Exp Date', 'Credit/Debit',
+                   'Call/Put', 'Strike 1', 'Strike 2', 'Premium', '#', 'Stock Price', 'Fees',
+                   'Broker', 'Status']
+        data = list(SpreadOption.objects.filter(user=request.user).values(*fields))
+    else:
+        raise Http404
+
+    fields = [{'data': f, 'title': h} for f,h in zip(fields, headers)]
+    fields += [{'data': 'edit', 'title': 'Edit'}, {'data': 'delete', 'title': 'Delete'}]
+    for d in data:
+        d['edit'] = None
+        d['delete'] = None
+
+
+    return Response({
+        'data': data,
+        'fields': fields,
+        'headers': headers,
     })
+
+
 
 
 class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
