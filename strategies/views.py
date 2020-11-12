@@ -25,20 +25,21 @@ def manage(request):
 def get_options(request):
     option_type = request.query_params.get('option_type')
     if option_type == 'basic':
-        fields = ['ticker', 'id', 'open_date', 'close_date', 'exp_date',
-                  'longshort', 'callput', 'strike', 'premium',
-                  'quantity', 'stock_price', 'fees', 'broker', 'status']
-        headers = ['Ticker', 'ID', 'Open Date', 'Close Date', 'Exp Date', 'Long/Short',
+        fields = ['ticker', 'id', 'open_date', 'exp_date', 'longshort',
+                  'callput', 'strike', 'premium', 'quantity', 'stock_price',
+                  'fees', 'close_date', 'close_price', 'profitloss', 'broker__name', 'status']
+        headers = ['Ticker', 'ID', 'Open Date', 'Exp Date', 'Long/Short',
                    'Call/Put', 'Strike', 'Premium', '#', 'Stock Price', 'Fees',
-                   'Broker', 'Status']
+                   'Close Date', 'Close Price', 'P/L', 'Broker', 'Status']
         data = list(BasicOption.objects.filter(user=request.user).values(*fields))
     elif option_type == 'spreads':
-        fields = ['ticker', 'id', 'open_date', 'close_date', 'exp_date',
+        fields = ['ticker', 'id', 'open_date', 'exp_date',
                   'creditdebit', 'callput', 'strike1', 'strike2',
-                  'premium', 'quantity', 'stock_price','fees', 'broker', 'status']
-        headers = ['Ticker', 'ID', 'Open Date', 'Close Date', 'Exp Date', 'Credit/Debit',
+                  'premium', 'quantity', 'stock_price','fees',
+                  'close_date', 'close_price', 'profitloss', 'broker__name', 'status']
+        headers = ['Ticker', 'ID', 'Open Date', 'Exp Date', 'Credit/Debit',
                    'Call/Put', 'Strike 1', 'Strike 2', 'Premium', '#', 'Stock Price', 'Fees',
-                   'Broker', 'Status']
+                   'Close Date', 'Close Price', 'P/L', 'Broker', 'Status']
         data = list(SpreadOption.objects.filter(user=request.user).values(*fields))
     else:
         raise Http404

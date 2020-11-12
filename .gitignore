@@ -1,4 +1,6 @@
 db.sqlite3
-*/__pycache__/*
+**/__pycache__/**
 .env
 .python-version
+basic_options.csv
+spread_options.csv

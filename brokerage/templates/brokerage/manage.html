@@ -9,6 +9,40 @@
 {% endblock %}
 
 {% block stylesheets %}
+<style>
+.flex-container {
+    /* We first create a flex layout context */
+    display: flex;
+        
+    /* Then we define the flow direction 
+    *  and if we allow the items to wrap 
+    *  Remember this is the same as:
+    *  flex-direction: row;
+    *  flex-wrap: wrap;
+    */
+    flex-flow: row wrap;
+          
+    /* Then we define how is distributed the remaining space */
+    justify-content: flex-start;
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.flex-item {
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+}
+</style>
 {% endblock stylesheets %}
 
 {% block content %}
@@ -21,8 +55,10 @@
                <div class="card-body">
                     <a href="{% url 'broker:add' %}" class="btn btn-primary mb-4">Add</a>
                     {% if brokers %}
+                        <ul class="flex-container">
                         {% for broker in brokers %}
-                        <div class="card" style="width: 20rem; background: #2e2f32">
+                            {# <li class="flex-item">{{ broker.name }}</li> #}
+                        <div class="card m-2" style="width: 20rem; background: #2e2f32">
                            <div class="card-body">
                                <h4 class="card-title">{{ broker.name }}</h4>
                                <h6 class="card-subtitle mb-2 text-muted">${{ broker.amount }}</h6>
@@ -32,6 +68,7 @@
                             </div>
                         </div>
                         {% endfor %}
+                        </ul>
                     {% else %}
                         <h4>No brokers added.</h4>
                     {% endif %}

@@ -36,8 +36,9 @@
                     <h2 class="card-title">Call/Put Options</h2>
                </div>
                <div class="card-body">
-                    <a href="{% url 'strategies:add_basic' %}" class="btn btn-primary mb-4">Add Call/Put</a>
                     <table id="basicTable" class="table table-sm table-bordered" width="100%"></table>
+                    <a href="{% url 'strategies:add_basic' %}" style="display: none;" id="addBasicBtn" i
+                        class="btn btn-primary mb-4">Add Call/Put</a>
                     <h4 id="basicEmpty" style="display: none;" >No call/put options avaliable.</h4>
                </div>
            </div>
@@ -47,8 +48,9 @@
                     <h2 class="card-title">Spread Options</h2>
                </div>
                <div class="card-body">
-                    <a href="{% url 'strategies:add_spread' %}" class="btn btn-primary mb-4">Add Spread</a>
                     <table id="spreadTable" class="table table-sm table-bordered" width="100%"></table>
+                    <a href="{% url 'strategies:add_spread' %}" style="display: none;" id="addSpreadBtn" i
+                        class="btn btn-primary mb-4">Add Spread</a>
                     <h4 id="spreadEmpty" style="display: none;" >No spread options avaliable.</h4>
                </div>
            </div>
@@ -67,6 +69,8 @@
         src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
     <script type="text/javascript" charset="utf8"
        src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script></script></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
 
     <script>
         $.ajax({
@@ -97,15 +101,53 @@
                         },
                         columnDefs: [
                             {
-                                targets: 1,  // hide id column
+                                targets: [1, 9, 10],  // hide id, stock_price, fees columns
                                 visible: false,
+                            },
+                            {
+                                "targets": 13,
+                                "createdCell": function (td, cellData, rowData, row, col) {
+                                    if (cellData < 0) {
+                                        $(td).css('color', 'red')
+                                    }
+                                    else if(cellData > 0) {
+                                        $(td).css('color', '#00b505')
+                                    }
+                                }
                             }
                         ],
+                        buttons: {
+                            buttons: [
+                                {
+                                    text: "<i class='fas fa-plus'></i> Add Call/Put", 
+                                    action: function (e, dt, node, config) {
+                                        window.location.href =  "{% url 'strategies:add_basic' %}"
+                                    },
+                                },
+                                {
+                                    extend: 'colvis',  // Enable column visibility selection
+                                    fade: 200,
+                                    background: false,
+                                    text: 'Column Visibility<i class="fas fa-angle-down ml-2"></i></i>'
+                                },
+                            ],
+                            dom: {
+                                button: {
+                                    tag: "button",
+                                    className: "btn btn-primary mr-2"
+                                },
+                            },
+                        },
                         language: {
                             // Remove label and add placeholder for search field
                             search: "_INPUT_",
                             searchPlaceholder: "Search...",
                         },
+                        order: [[1, "desc"]],  // sort by open date
+                        pageLength: 20, 
+                        lengthMenu: [20, 50, 100],
+                        dom: 'Bfrt<"row"<"col"li><"col"p>>',
+
                     });
                     table.rows().every(function (rowIdx, tableLoop, rowLoop) {
                         var data = this.data();
@@ -120,6 +162,7 @@
                 }
                 else {
                     $('#basicTable').hide();
+                    $('#addBasicBtn').show();
                     $('#basicEmpty').show();
                 }
             },
@@ -139,6 +182,69 @@
                     var table = $('#spreadTable').DataTable({
                         data: result['data'],
                         columns: result['fields'],
+                        // For mobile view
+                        responsive: {
+                            details: {
+                                display: $.fn.dataTable.Responsive.display.modal({
+                                    header: function (row) {
+                                        let rowData = row.data();
+                                        // Get the first and last name from the fields
+                                        return 'Details for ' + rowData['ticker']
+                                    }
+                                }),
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                    tableClass: 'table'
+                                })
+                            }
+                        },
+                        columnDefs: [
+                            {
+                                targets: [1, 10, 11],  // hide id column
+                                visible: false,
+                            },
+                            {
+                                "targets": 14,
+                                "createdCell": function (td, cellData, rowData, row, col) {
+                                    if (cellData < 0) {
+                                        $(td).css('color', 'red')
+                                    }
+                                    else if(cellData > 0) {
+                                        $(td).css('color', '#00b505')
+                                    }
+                                }
+                            }
+                        ],
+                        buttons: {
+                            buttons: [
+                                {
+                                    text: "<i class='fas fa-plus'></i> Add Spread", 
+                                    action: function (e, dt, node, config) {
+                                        window.location.href =  "{% url 'strategies:add_spread' %}"
+                                    },
+                                },
+                                {
+                                    extend: 'colvis',  // Enable column visibility selection
+                                    fade: 200,
+                                    background: false,
+                                    text: 'Column Visibility<i class="fas fa-angle-down ml-2"></i></i>'
+                                },
+                            ],
+                            dom: {
+                                button: {
+                                    tag: "button",
+                                    className: "btn btn-primary mr-2"
+                                },
+                            },
+                        },
+                        language: {
+                            // Remove label and add placeholder for search field
+                            search: "_INPUT_",
+                            searchPlaceholder: "Search...",
+                        },
+                        order: [[1, "desc"]],  // sort by open date
+                        pageLength: 20, 
+                        lengthMenu: [20, 50, 100],
+                        dom: 'Bfrt<"row"<"col"li><"col"p>>',
                     });
                     table.rows().every(function (rowIdx, tableLoop, rowLoop) {
                         var data = this.data();
@@ -153,6 +259,7 @@
                 }
                 else {
                     $('#spreadTable').hide()
+                    $('#addSpreadBtn').show()
                     $('#spreadEmpty').show()
                 }
             },

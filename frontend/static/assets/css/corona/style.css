@@ -17463,7 +17463,7 @@ select.tt-query,
 select.tt-hint {
   padding: .4375rem .75rem;
   border: 0;
-  color: #4b5564; }
+  color: #c2c2c2; }
   select.form-control:focus, select.asColorPicker-input:focus, .dataTables_wrapper select:focus,
   .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .select2-container--default select.select2-selection--single:focus, .select2-container--default .select2-selection--single select.select2-search__field:focus, select.typeahead:focus,
   select.tt-query:focus,
@@ -22850,3 +22850,20 @@ div.tagsinput {
 
 /*# sourceMappingURL=../maps/classic-vertical/style.css.map */
 
+/* The emerging W3C standard
+* that is currently Firefox-only */
+* {
+     scrollbar-width: thin;
+     scrollbar-color: black #2e2f32;
+}
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+    background: #2e2f32;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}
