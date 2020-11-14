@@ -7,6 +7,8 @@ from strategies.models import *
 
 def load_basic_options():
     """
+    You must have the TD Ameritrade and Robinhood brokers added
+
     from import_csv import load_basic_options; load_basic_options()
     """
     df = pd.read_csv('./basic_options.csv')
