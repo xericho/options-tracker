@@ -9,8 +9,8 @@ from strategies.models import BasicOption, SpreadOption
 @login_required
 def home(request):
     values = ['open_date', 'profitloss', 'fees', 'ticker']
-    basics = [o for o in BasicOption.objects.values(*values) if o['profitloss']]
-    spreads = [o for o in SpreadOption.objects.values(*values) if o['profitloss']]
+    basics = [o for o in BasicOption.objects.filter(user=request.user).values(*values) if o['profitloss']]
+    spreads = [o for o in SpreadOption.objects.filter(user=request.user).values(*values) if o['profitloss']]
     df = pd.DataFrame(basics + spreads)
     df['day'] = df.open_date.apply(lambda x: x.day)
     df['month'] = df.open_date.apply(lambda x: x.month)

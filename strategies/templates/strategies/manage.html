@@ -248,10 +248,10 @@
                     });
                     table.rows().every(function (rowIdx, tableLoop, rowLoop) {
                         var data = this.data();
-                        var url_edit = '{% url "strategies:update_basic" 0 %}';  // get url but change the id
+                        var url_edit = '{% url "strategies:update_spread" 0 %}';  // get url but change the id
                         data["edit"] = '<a class="btn btn-sm" href="' + url_edit.slice(0, -2) + data["id"] +
                         '/"><i class="fas fa-edit"></i></a>';
-                        var url_delete = '{% url "strategies:delete_basic" 0 %}';  // get url but change the id
+                        var url_delete = '{% url "strategies:delete_spread" 0 %}';  // get url but change the id
                         data["delete"] = '<a class="btn btn-sm" href="' + url_delete.slice(0, -2) + data["id"] +
                         '/"><i class="fas fa-trash"></i></a>';
                         this.data(data)

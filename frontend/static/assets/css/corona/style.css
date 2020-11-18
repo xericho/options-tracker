@@ -13547,6 +13547,9 @@ button.bg-dark:focus {
 .w-100 {
   width: 100% !important; }
 
+.w-110 {
+  width: 110% !important; }
+
 .w-auto {
   width: auto !important; }
 
@@ -16189,7 +16192,7 @@ code {
     color: #885a17; }
 
 .alert-danger {
-  color: #a2302c;
+  color: #fd4a44;
   background-color: rgba(213, 63, 58, 0.2);
   border-color: #c43a35; }
   .alert-danger hr {
@@ -17090,7 +17093,7 @@ code {
 .card {
   border-radius: 0.25rem; }
   .card .card-body {
-    padding: 1.88rem 1.81rem; }
+    padding: 0rem 1.5rem 1.5rem 1.5rem; }
     .card .card-body + .card-body {
       padding-top: 1rem; }
   .card .card-title {
@@ -21838,7 +21841,7 @@ div.tagsinput {
 /* === Landing screens === */
 /* Auth */
 .auth.login-bg {
-  background: url("../../images/auth/Login_bg.jpg");
+  background: url("../../img/Login_bg.jpg");
   background-size: cover; }
 
 .auth .login-half-bg {

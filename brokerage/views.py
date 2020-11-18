@@ -7,13 +7,14 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Broker
+from .forms import BrokerForm
 
 
 class BrokerCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Broker
     success_message = 'Broker created!'
     template_name = 'brokerage/create.html'
-    fields = ('name', 'amount')
+    form_class = BrokerForm
 
     def form_valid(self, form):
 
@@ -32,7 +33,7 @@ class BrokerUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_message = 'Broker updated!'
     success_url = reverse_lazy('broker:manage')
     template_name = 'brokerage/update.html'
-    fields = ('name', 'amount')
+    form_class = BrokerForm
 
 
 class BrokerDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):

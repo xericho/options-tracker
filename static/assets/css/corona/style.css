@@ -8739,7 +8739,7 @@ pre {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1;
-  color: #495057;
+  color: white;
   background-color: #2A3038;
   background-clip: padding-box;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -8761,7 +8761,7 @@ pre {
   .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=number], .select2-container--default .select2-selection--single:focus, .select2-container--default .select2-selection--single .select2-search__field:focus, .typeahead:focus,
   .tt-query:focus,
   .tt-hint:focus {
-    color: #495057;
+    color: white;
     background-color: #fff;
     border-color: #80bdff;
     outline: 0;
@@ -8786,7 +8786,7 @@ select.form-control:focus::-ms-value, select.asColorPicker-input:focus::-ms-valu
 .jsgrid .jsgrid-table .jsgrid-filter-row select:focus::-ms-value, .select2-container--default select.select2-selection--single:focus::-ms-value, .select2-container--default .select2-selection--single select.select2-search__field:focus::-ms-value, select.typeahead:focus::-ms-value,
 select.tt-query:focus::-ms-value,
 select.tt-hint:focus::-ms-value {
-  color: #495057;
+  color: white;
   background-color: #2A3038; }
 
 .form-control-file,
@@ -10534,7 +10534,7 @@ input[type="button"].btn-block {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1;
-  color: #495057;
+  color: white;
   text-align: center;
   white-space: nowrap;
   background-color: #e9ecef;
@@ -10782,7 +10782,7 @@ input[type="button"].btn-block {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: white;
   vertical-align: middle;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
   background-color: #fff;
@@ -10794,7 +10794,7 @@ input[type="button"].btn-block {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
     .custom-select:focus::-ms-value {
-      color: #495057;
+      color: white;
       background-color: #2A3038; }
   .custom-select[multiple], .custom-select[size]:not([size="1"]) {
     height: auto;
@@ -10854,7 +10854,7 @@ input[type="button"].btn-block {
   padding: 0.375rem 0.75rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: white;
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 0.25rem; }
@@ -10868,7 +10868,7 @@ input[type="button"].btn-block {
     height: calc(1.5em + 0.75rem);
     padding: 0.375rem 0.75rem;
     line-height: 1.5;
-    color: #495057;
+    color: white;
     content: "Browse";
     background-color: #e9ecef;
     border-left: inherit;
@@ -15411,30 +15411,30 @@ input:focus {
 @font-face {
   font-family: 'Assistant';
   font-weight: 300;
-  src: url("../../fonts/Assistant/Assistant-Light.eot");
+  src: url("../../fonts/corona/Assistant-Light.eot");
   /* IE9 Compat Modes */
-  src: url("../../fonts/Assistant/Assistant-Light.woff2") format("woff2"), url("../../fonts/Assistant/Assistant-Light.woff") format("woff"), url("../../fonts/Assistant/Assistant-Light.ttf") format("truetype"); }
+  src: url("../../fonts/corona/Assistant-Light.woff2") format("woff2"), url("../../fonts/corona/Assistant-Light.woff") format("woff"), url("../../fonts/corona/Assistant-Light.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Assistant';
   font-weight: 400;
-  src: url("../../fonts/Assistant/Assistant-Regular.eot");
+  src: url("../../fonts/corona/Assistant-Regular.eot");
   /* IE9 Compat Modes */
-  src: url("../../fonts/Assistant/Assistant-Regular.woff2") format("woff2"), url("../../fonts/Assistant/Assistant-Regular.woff") format("woff"), url("../../fonts/Assistant/Assistant-Regular.ttf") format("truetype"); }
+  src: url("../../fonts/corona/Assistant-Regular.woff2") format("woff2"), url("../../fonts/corona/Assistant-Regular.woff") format("woff"), url("../../fonts/corona/Assistant-Regular.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Assistant';
   font-weight: 600;
-  src: url("../../fonts/Assistant/Assistant-SemiBold.eot");
+  src: url("../../fonts/corona/Assistant-SemiBold.eot");
   /* IE9 Compat Modes */
-  src: url("../../fonts/Assistant/Assistant-SemiBold.woff2") format("woff2"), url("../../fonts/Assistant/Assistant-SemiBold.woff") format("woff"), url("../../fonts/Assistant/Assistant-ExtraLight.ttf") format("truetype"); }
+  src: url("../../fonts/corona/Assistant-SemiBold.woff2") format("woff2"), url("../../fonts/corona/Assistant-SemiBold.woff") format("woff"), url("../../fonts/corona/Assistant-ExtraLight.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Assistant';
   font-weight: 700;
-  src: url("../../fonts/Assistant/Assistant-Bold.eot");
+  src: url("../../fonts/corona/Assistant-Bold.eot");
   /* IE9 Compat Modes */
-  src: url("../../fonts/Assistant/Assistant-Bold.woff2") format("woff2"), url("../../fonts/Assistant/Assistant-Bold.woff") format("woff"), url("../../fonts/Assistant/Assistant-Bold.ttf") format("truetype"); }
+  src: url("../../fonts/corona/Assistant-Bold.woff2") format("woff2"), url("../../fonts/corona/Assistant-Bold.woff") format("woff"), url("../../fonts/corona/Assistant-Bold.ttf") format("truetype"); }
 
 /* Backgrounds  */
 .bg-gradient-primary {
@@ -17092,7 +17092,7 @@ code {
   .card .card-body {
     padding: 1.88rem 1.81rem; }
     .card .card-body + .card-body {
-      padding-top: 1rem; }
+      padding-top: 0rem; }
   .card .card-title {
     color: #ffffff;
     margin-bottom: 1.125rem;
@@ -17463,7 +17463,7 @@ select.tt-query,
 select.tt-hint {
   padding: .4375rem .75rem;
   border: 0;
-  color: #4b5564; }
+  color: #c2c2c2; }
   select.form-control:focus, select.asColorPicker-input:focus, .dataTables_wrapper select:focus,
   .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .select2-container--default select.select2-selection--single:focus, .select2-container--default .select2-selection--single select.select2-search__field:focus, select.typeahead:focus,
   select.tt-query:focus,
@@ -22823,6 +22823,7 @@ div.tagsinput {
       width: 100%; } }
 
 .container-scroller {
+  min-height: 100vh;
   display: flex;
   position: relative; }
 
@@ -22848,3 +22849,21 @@ div.tagsinput {
   flex-grow: 1; }
 
 /*# sourceMappingURL=../maps/classic-vertical/style.css.map */
+
+/* The emerging W3C standard
+* that is currently Firefox-only */
+* {
+     scrollbar-width: thin;
+     scrollbar-color: black #2e2f32;
+}
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+    background: #2e2f32;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}

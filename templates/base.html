@@ -19,6 +19,7 @@
         <link href="{% static 'assets/css/corona/materialdesignicons.min.css' %}" rel="stylesheet" />
         <link href="{% static 'assets/css/corona/vendor.bundle.base.css' %}" rel="stylesheet" />
         <link href="{% static 'assets/css/corona/style.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/toastr.min.css' %}" rel="stylesheet" />
 
         <!-- Specific Page CSS goes HERE  -->
         {% block stylesheets %}{% endblock stylesheets %}
@@ -125,9 +126,10 @@
         <script src="{% static 'assets/js/corona/vendor.bundle.base.js' %}"></script>
         <script src="{% static 'assets/js/corona/off-canvas.js' %}"></script>
         <script src="{% static 'assets/js/corona/hoverable-collapse.js' %}"></script>
-        <script src="{% static 'assets/js/corona/misc.js' %}"></script>
-        <script src="{% static 'assets/js/corona/settings.js' %}"></script>
-        <script src="{% static 'assets/js/corona/todolist.js' %}"></script>
+        {# <script src="{% static 'assets/js/corona/misc.js' %}"></script> #}
+        {# <script src="{% static 'assets/js/corona/settings.js' %}"></script> #}
+        {# <script src="{% static 'assets/js/corona/todolist.js' %}"></script> #}
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
         <script src="{% static 'assets/js/toastr.min.js' %}"></script>
 
         <script>

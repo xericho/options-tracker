@@ -50,13 +50,11 @@ def get_options(request):
         d['edit'] = None
         d['delete'] = None
 
-
     return Response({
         'data': data,
         'fields': fields,
         'headers': headers,
     })
-
 
 
 
@@ -66,7 +64,7 @@ class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView)
     template_name = 'strategies/create.html'
     fields = ('ticker', 'open_date', 'close_date', 'exp_date',
               'longshort', 'callput', 'strike', 'premium',
-              'quantity', 'stock_price','fees', 'broker', 'status')
+              'quantity', 'stock_price','fees', 'close_date', 'close_price', 'broker', 'status')
 
     def form_valid(self, form):
 
@@ -82,17 +80,18 @@ class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView)
         return context
 
     def get_success_url(self):
-        return reverse('strategies:add_basic')
+        messages.add_message(self.request, messages.SUCCESS, self.success_message)
+        return reverse('strategies:manage')
 
 
 class BasicOptionUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = BasicOption
     success_message = 'Option updated!'
-    success_url = reverse_lazy('strategies:add_basic')
+    success_url = reverse_lazy('strategies:manage')
     template_name = 'strategies/update.html'
     fields = ('ticker', 'open_date', 'close_date', 'exp_date',
               'longshort', 'callput', 'strike', 'premium',
-              'quantity', 'stock_price','fees', 'broker', 'status')
+              'quantity', 'stock_price','fees', 'close_date', 'close_price', 'broker', 'status')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -112,7 +111,7 @@ class BasicOptionDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView)
 
     def get_success_url(self):
         messages.success(self.request, self.success_message)
-        return reverse('strategies:add_basic')
+        return reverse('strategies:manage')
 
 
 class SpreadOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -121,7 +120,8 @@ class SpreadOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     template_name = 'strategies/create.html'
     fields = ('ticker', 'open_date', 'close_date', 'exp_date',
               'creditdebit', 'callput', 'strike1', 'strike2',
-              'premium', 'quantity', 'stock_price','fees', 'broker', 'status')
+              'premium', 'quantity', 'stock_price','fees',
+              'close_date', 'close_price', 'broker', 'status')
 
     def form_valid(self, form):
 
@@ -137,16 +137,17 @@ class SpreadOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
         return context
 
     def get_success_url(self):
-        return reverse('strategies:add_spread')
+        return reverse('strategies:manage')
 
 class SpreadOptionUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = SpreadOption
     success_message = 'Option updated!'
-    success_url = reverse_lazy('strategies:add_spread')
+    success_url = reverse_lazy('strategies:manage')
     template_name = 'strategies/update.html'
     fields = ('ticker', 'open_date', 'close_date', 'exp_date',
               'creditdebit', 'callput', 'strike1', 'strike2',
-              'premium', 'quantity', 'stock_price','fees', 'broker', 'status')
+              'premium', 'quantity', 'stock_price','fees',
+              'close_date', 'close_price', 'broker', 'status')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -166,4 +167,4 @@ class SpreadOptionDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
 
     def get_success_url(self):
         messages.success(self.request, self.success_message)
-        return reverse('strategies:add_spread')
+        return reverse('strategies:manage')
