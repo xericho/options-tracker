@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from colour import Color
 import pandas as pd
 from datetime import datetime
 
@@ -46,14 +47,28 @@ def home(request):
     # Ticker performance
     df_ticker = df.groupby([df.ticker], as_index=False).sum()
     df_ticker = df_ticker.sort_values(by='profitloss', ascending=False)
-    perf_ticker = [{
+    df_gainers = df_ticker[df_ticker.profitloss >= 0]
+    # red = Color("green")
+    # darkred = Color("red")
+    # df_gainers['color'] = [c.hex for c in red.range_to(darkred, df_gainers.shape[0])]
+    perf_gainers_ticker = [{
         'ticker': x.ticker,
         'profit': x.profitloss,
-    } for i, x in df_ticker.iterrows()]
+        'color': "#46c35f"
+    } for i, x in df_gainers.iterrows()]
+
+    df_losers = df_ticker[df_ticker.profitloss < 0]
+    # df_losers['color'] = [c.hex for c in red.range_to(darkred, df_losers.shape[0])]
+    perf_losers_ticker = [{
+        'ticker': x.ticker,
+        'profit': x.profitloss,
+        'color': "maroon"
+    } for i, x in df_losers.iterrows()]
 
     return render(request, "frontend/home.html", {
         'perf_all': perf_all,
         'perf_ytd': perf_ytd,
         'perf_month': perf_month,
-        'perf_ticker': perf_ticker,
+        'perf_gainers_ticker': perf_gainers_ticker,
+        'perf_losers_ticker': perf_losers_ticker,
     })
