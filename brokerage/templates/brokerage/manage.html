@@ -29,19 +29,6 @@
     margin: 0;
     list-style: none;
 }
-
-.flex-item {
-    background: tomato;
-    padding: 5px;
-    width: 200px;
-    height: 150px;
-    margin-top: 10px;
-    line-height: 150px;
-    color: white;
-    font-weight: bold;
-    font-size: 3em;
-    text-align: center;
-}
 </style>
 {% endblock stylesheets %}
 
@@ -57,8 +44,7 @@
                     {% if brokers %}
                         <ul class="flex-container">
                         {% for broker in brokers %}
-                            {# <li class="flex-item">{{ broker.name }}</li> #}
-                        <div class="card m-2" style="width: 20rem; background: #2e2f32">
+                        <div class="card m-2 pt-4" style="width: 20rem; background: #2e2f32">
                            <div class="card-body">
                                <h4 class="card-title">{{ broker.name }}</h4>
                                <h6 class="card-subtitle mb-2 text-muted">${{ broker.amount }}</h6>

@@ -57,7 +57,6 @@ def get_options(request):
     })
 
 
-
 class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = BasicOption
     success_message = 'Option added!'
@@ -67,7 +66,6 @@ class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView)
               'quantity', 'stock_price','fees', 'close_date', 'close_price', 'broker', 'status')
 
     def form_valid(self, form):
-
         model = form.save(commit=False)
         model.user = self.request.user
         model.save()
@@ -92,6 +90,9 @@ class BasicOptionUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView)
     fields = ('ticker', 'open_date', 'close_date', 'exp_date',
               'longshort', 'callput', 'strike', 'premium',
               'quantity', 'stock_price','fees', 'close_date', 'close_price', 'broker', 'status')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

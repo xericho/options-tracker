@@ -19,7 +19,7 @@
                    <h2 class="card-title">Delete {{ type }} Option</h2>
                </div>
                <div class="card-body">
-                   <p class="pb-4">Are you sure you want to delete {{ object.name }}?</p>
+                   <p class="pb-4">Are you sure you want to delete {{ object.ticker }}?</p>
                    <form method="post">
                        {% csrf_token %}
                        {{ form|crispy }}

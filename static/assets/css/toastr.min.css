@@ -117,6 +117,7 @@ button.toast-close-button {
 }
 
 #toast-container>div {
+    opacity: .9;
     position: relative;
     pointer-events: auto;
     overflow: hidden;

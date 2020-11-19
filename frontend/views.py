@@ -3,11 +3,15 @@ from django.contrib.auth.decorators import login_required
 from colour import Color
 import pandas as pd
 from datetime import datetime
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
 
 from strategies.models import BasicOption, SpreadOption
 
 @login_required
-def home(request):
+@api_view(['GET'])
+def get_option_data(request):
     values = ['open_date', 'profitloss', 'fees', 'ticker']
     basics = [o for o in BasicOption.objects.filter(user=request.user).values(*values) if o['profitloss']]
     spreads = [o for o in SpreadOption.objects.filter(user=request.user).values(*values) if o['profitloss']]
@@ -65,10 +69,14 @@ def home(request):
         'color': "maroon"
     } for i, x in df_losers.iterrows()]
 
-    return render(request, "frontend/home.html", {
+    return Response({
         'perf_all': perf_all,
         'perf_ytd': perf_ytd,
         'perf_month': perf_month,
         'perf_gainers_ticker': perf_gainers_ticker,
         'perf_losers_ticker': perf_losers_ticker,
     })
+
+@login_required
+def home(request):
+    return render(request, "frontend/home.html", {})

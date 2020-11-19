@@ -101,120 +101,131 @@
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
     <script>
-    var perf_all = {{ perf_all|safe }}
-    var perf_ytd = {{ perf_ytd|safe }}
-    var perf_month = {{ perf_month|safe }}
-    var chart;
+        var chart;
+        $.ajax({
+            url: '{% url "get_option_data" %}',
+            success: function (data) {
+                var perf_all = data['perf_all']
+                var perf_ytd = data['perf_ytd']
+                var perf_month = data['perf_month']
+                var perf_gainers_ticker = data['perf_gainers_ticker']
+                var perf_losers_ticker = data['perf_losers_ticker']
 
-    am4core.ready(function() {
+                am4core.ready(function() {
 
-        // Themes begin
-        am4core.useTheme(am4themes_animated);
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
 
-        build_account_chart();
-        build_gainers_ticker_chart();
-        build_losers_ticker_chart();
+                    build_account_chart(perf_all);
+                    build_gainers_ticker_chart(perf_gainers_ticker);
+                    build_losers_ticker_chart(perf_losers_ticker);
 
-    }); // end am4core.ready()
+                }); // end am4core.ready()
 
-    $("#perf_all").click(function() {
-        chart.data = perf_all
-    });
-    $("#perf_ytd").click(function() {
-        chart.data = perf_ytd
-    });
-    $("#perf_month").click(function() {
-        chart.data = perf_month
-    });
+                $("#perf_all").click(function() {
+                    chart.data = perf_all
+                });
+                $("#perf_ytd").click(function() {
+                    chart.data = perf_ytd
+                });
+                $("#perf_month").click(function() {
+                    chart.data = perf_month
+                });
 
-    function build_account_chart() {
-        /*
-         * ACCOUNT PERFORMANCE
-         */
-
-        // Create chart instance
-        chart = am4core.create("chartdiv_account_performance", am4charts.XYChart);
-
-        // Add data
-        chart.data = perf_all
-        // Add currency on y axis
-        chart.numberFormatter.numberFormat = '$#,###';
-
-        // Create axes
-        var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-        dateAxis.startLocation = 0.5;
-        dateAxis.endLocation = 0.5;
-        dateAxis.renderer.labels.template.fill = am4core.color("#fff");
-        dateAxis.renderer.grid.template.stroke = "grey";
-        dateAxis.renderer.grid.template.strokeOpacity = .3;
-
-        // Create value axis
-        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.renderer.labels.template.fill = am4core.color("#fff");
-        valueAxis.renderer.grid.template.stroke = "grey";
-        valueAxis.renderer.grid.template.strokeOpacity = .3;
-
-        // Create gradient colors
-        let fillModifier = new am4core.LinearGradientModifier();
-        fillModifier.opacities = [1, 0];
-        fillModifier.offsets = [0, 1];
-        fillModifier.gradient.rotation = 90;
-
-        // Create series
-        var series = chart.series.push(new am4charts.LineSeries());
-        series.dataFields.valueY = "profit";
-        series.dataFields.dateX = "date";
-        series.strokeWidth = 3;
-        series.tooltipText = "P/L: {valueY.value}";
-        series.fillOpacity = .3;
-        series.fill = am4core.color('#46c35f')
-        series.stroke = am4core.color('#46c35f')
-        series.segments.template.fillModifier = fillModifier;
-
-        // Create a range to change stroke for values below 0
-        var range = valueAxis.createSeriesRange(series);
-        range.value = 0;
-        range.endValue = -9999999;
-        range.contents.stroke = am4core.color('maroon');
-        range.contents.fill = range.contents.stroke;
-        range.contents.fillOpacity = 1;
-
-        // Add cursor
-        chart.cursor = new am4charts.XYCursor();
-        chart.cursor.xAxis = dateAxis;
-
-        series.tooltip.getFillFromObject = false;
-        series.tooltip.adapter.add("x", (x, target)=>{
-            if(series.tooltip.tooltipDataItem.valueY < 0){
-                series.tooltip.background.fill = am4core.color('maroon')
-            }
-            else{
-                series.tooltip.background.fill = am4core.color('#46c35f')
-            }
-            return x;
+            },
+            error: function(xhr, status, error){
+                console.log(error)
+            },
         })
-    }
 
-    function build_gainers_ticker_chart() { 
+        function build_account_chart(perf_all) {
+            /*
+             * ACCOUNT PERFORMANCE
+             */
+
+            // Create chart instance
+            chart = am4core.create("chartdiv_account_performance", am4charts.XYChart);
+
+            // Add data
+            chart.data = perf_all
+            // Add currency on y axis
+            chart.numberFormatter.numberFormat = '$#,###';
+
+            // Create axes
+            var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+            dateAxis.startLocation = 0.5;
+            dateAxis.endLocation = 0.5;
+            dateAxis.renderer.labels.template.fill = am4core.color("#fff");
+            dateAxis.renderer.grid.template.stroke = "grey";
+            dateAxis.renderer.grid.template.strokeOpacity = .3;
+
+            // Create value axis
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.renderer.labels.template.fill = am4core.color("#fff");
+            valueAxis.renderer.grid.template.stroke = "grey";
+            valueAxis.renderer.grid.template.strokeOpacity = .3;
+
+            // Create gradient colors
+            let fillModifier = new am4core.LinearGradientModifier();
+            fillModifier.opacities = [1, 0];
+            fillModifier.offsets = [0, 1];
+            fillModifier.gradient.rotation = 90;
+
+            // Create series
+            var series = chart.series.push(new am4charts.LineSeries());
+            series.dataFields.valueY = "profit";
+            series.dataFields.dateX = "date";
+            series.strokeWidth = 3;
+            series.tooltipText = "P/L: {valueY.value}";
+            series.fillOpacity = .3;
+            series.fill = am4core.color('#46c35f')
+            series.stroke = am4core.color('#46c35f')
+            series.segments.template.fillModifier = fillModifier;
+
+            // Create a range to change stroke for values below 0
+            var range = valueAxis.createSeriesRange(series);
+            range.value = 0;
+            range.endValue = -9999999;
+            range.contents.stroke = am4core.color('maroon');
+            range.contents.fill = range.contents.stroke;
+            range.contents.fillOpacity = 1;
+
+            // Add cursor
+            chart.cursor = new am4charts.XYCursor();
+            chart.cursor.xAxis = dateAxis;
+
+            series.tooltip.getFillFromObject = false;
+            series.tooltip.adapter.add("x", (x, target)=>{
+                if(series.tooltip.tooltipDataItem.valueY < 0){
+                    series.tooltip.background.fill = am4core.color('maroon')
+                }
+                else{
+                    series.tooltip.background.fill = am4core.color('#46c35f')
+                }
+                return x;
+            })
+        }
+
+    function build_gainers_ticker_chart(perf_gainers_ticker) { 
         /*
          * GAINERS TICKER PERFORMANCE
          */
 
         var chart_ticker = am4core.create("chartdiv_gainers_ticker_performance", am4charts.XYChart);
-        chart_ticker.data = {{ perf_gainers_ticker|safe }}
+        chart_ticker.data = perf_gainers_ticker
 
         let labelBullet = config_ticker_performance_chart(chart_ticker)
         labelBullet.label.horizontalCenter = "left";
         labelBullet.label.dx = 10;
     }
 
-    function build_losers_ticker_chart() { 
+    function build_losers_ticker_chart(perf_losers_ticker) { 
         /*
          * LOSERS TICKER PERFORMANCE
          */
 
         var chart_ticker = am4core.create("chartdiv_losers_ticker_performance", am4charts.XYChart);
-        chart_ticker.data = {{ perf_losers_ticker|safe }}
+        chart_ticker.data = perf_losers_ticker
 
         let labelBullet = config_ticker_performance_chart(chart_ticker)
         labelBullet.label.horizontalCenter = "right";

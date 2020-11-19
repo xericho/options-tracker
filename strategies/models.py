@@ -17,7 +17,7 @@ class BasicOption(models.Model):
     stock_price = models.DecimalField(decimal_places=2, max_digits=10)
     close_price = models.DecimalField(decimal_places=2, max_digits=10, null=True)
     profitloss = models.DecimalField(decimal_places=2, max_digits=10, null=True)
-    fees = models.DecimalField(decimal_places=2, max_digits=10)
+    fees = models.DecimalField(decimal_places=2, max_digits=10, null=True)
     broker = models.ForeignKey(Broker, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=9, choices=(('expired', 'Expired'), ('closed', 'Closed'), ('open', 'Open'), ('exercised', 'Exercised')), default='open')
     user = models.ForeignKey(get_user_model(), null=True, on_delete=models.CASCADE)
@@ -37,8 +37,9 @@ class SpreadOption(models.Model):
     stock_price = models.DecimalField(decimal_places=2, max_digits=10)
     close_price = models.DecimalField(decimal_places=2, max_digits=10, null=True)
     profitloss = models.DecimalField(decimal_places=2, max_digits=10, null=True)
-    fees = models.DecimalField(decimal_places=2, max_digits=10)
+    fees = models.DecimalField(decimal_places=2, max_digits=10, null=True)
     broker = models.ForeignKey(Broker, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=9, choices=(('expired', 'Expired'), ('closed', 'Closed'), ('open', 'Open'), ('exercised', 'Exercised')), default='open')
     user = models.ForeignKey(get_user_model(), null=True, on_delete=models.CASCADE)
+
 
