@@ -6,6 +6,7 @@ app_name = 'strategies'
 urlpatterns = [
     path('manage/', manage, name='manage'),
     path('get_options/', get_options, name='get_options'),
+    path('upload/', upload, name='upload'),
 
     path('basic/add/', BasicOptionCreateView.as_view(), name='add_basic'),
     path('basic/update/<int:pk>/', BasicOptionUpdateView.as_view(), name='update_basic'),

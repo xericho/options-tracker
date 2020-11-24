@@ -9,6 +9,11 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Broker
 from .forms import BrokerForm
 
+BROKERS = {
+    'TD': 'TD Ameritrade',
+    'RH': 'Robinhood',
+}
+
 
 class BrokerCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Broker
@@ -47,7 +52,10 @@ class BrokerDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 
 def manage(request):
-    brokers = Broker.objects.filter(user=request.user)
+    brokers = Broker.objects.filter(user=request.user).values()
+    for b in brokers:
+        b['broker'] = BROKERS[b['broker']]
+
     return render(request, 'brokerage/manage.html', {
         'brokers': brokers,
     })

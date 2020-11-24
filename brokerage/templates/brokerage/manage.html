@@ -46,7 +46,8 @@
                         {% for broker in brokers %}
                         <div class="card m-2 pt-4" style="width: 20rem; background: #2e2f32">
                            <div class="card-body">
-                               <h4 class="card-title">{{ broker.name }}</h4>
+                               <h4 class="card-title mb-1">{{ broker.name }}</h4>
+                               <h6 class="card-subtitle mt-0 mb-2">{{ broker.broker }}</h6>
                                <h6 class="card-subtitle mb-2 text-muted">${{ broker.amount }}</h6>
                                <p class="card-text"></p>
                                <a href="{% url 'broker:update' broker.id %}" class="card-link">Update</a>

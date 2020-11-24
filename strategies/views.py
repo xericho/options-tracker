@@ -12,7 +12,8 @@ from django.http import Http404
 import json
 
 from .models import BasicOption, SpreadOption
-from .forms import BasicOptionForm, SpreadOptionForm
+from .forms import BasicOptionForm, SpreadOptionForm, CsvForm
+from import_csv import load_basic_options, load_spread_options
 
 
 @login_required
@@ -45,10 +46,9 @@ def get_options(request):
         raise Http404
 
     fields = [{'data': f, 'title': h} for f,h in zip(fields, headers)]
-    fields += [{'data': 'edit', 'title': 'Edit'}, {'data': 'delete', 'title': 'Delete'}]
+    fields += [{'data': 'edit', 'title': 'Modify'}, ]
     for d in data:
         d['edit'] = None
-        d['delete'] = None
 
     return Response({
         'data': data,
@@ -61,9 +61,7 @@ class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView)
     model = BasicOption
     success_message = 'Option added!'
     template_name = 'strategies/create.html'
-    fields = ('ticker', 'open_date', 'close_date', 'exp_date',
-              'longshort', 'callput', 'strike', 'premium',
-              'quantity', 'stock_price','fees', 'close_date', 'close_price', 'broker', 'status')
+    form_class = BasicOptionForm
 
     def form_valid(self, form):
         model = form.save(commit=False)
@@ -78,7 +76,6 @@ class BasicOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView)
         return context
 
     def get_success_url(self):
-        messages.add_message(self.request, messages.SUCCESS, self.success_message)
         return reverse('strategies:manage')
 
 
@@ -87,9 +84,7 @@ class BasicOptionUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView)
     success_message = 'Option updated!'
     success_url = reverse_lazy('strategies:manage')
     template_name = 'strategies/update.html'
-    fields = ('ticker', 'open_date', 'close_date', 'exp_date',
-              'longshort', 'callput', 'strike', 'premium',
-              'quantity', 'stock_price','fees', 'close_date', 'close_price', 'broker', 'status')
+    form_class = BasicOptionForm
 
     def form_valid(self, form):
         return super().form_valid(form)
@@ -119,10 +114,7 @@ class SpreadOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     model = SpreadOption
     success_message = 'Option added!'
     template_name = 'strategies/create.html'
-    fields = ('ticker', 'open_date', 'close_date', 'exp_date',
-              'creditdebit', 'callput', 'strike1', 'strike2',
-              'premium', 'quantity', 'stock_price','fees',
-              'close_date', 'close_price', 'broker', 'status')
+    form_class = SpreadOptionForm
 
     def form_valid(self, form):
 
@@ -140,15 +132,16 @@ class SpreadOptionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     def get_success_url(self):
         return reverse('strategies:manage')
 
+
 class SpreadOptionUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = SpreadOption
     success_message = 'Option updated!'
     success_url = reverse_lazy('strategies:manage')
     template_name = 'strategies/update.html'
-    fields = ('ticker', 'open_date', 'close_date', 'exp_date',
-              'creditdebit', 'callput', 'strike1', 'strike2',
-              'premium', 'quantity', 'stock_price','fees',
-              'close_date', 'close_price', 'broker', 'status')
+    form_class = SpreadOptionForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -169,3 +162,23 @@ class SpreadOptionDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
     def get_success_url(self):
         messages.success(self.request, self.success_message)
         return reverse('strategies:manage')
+
+
+def upload(request):
+    if request.method == 'POST':
+        form = CsvForm(request.POST, request.FILES)
+        if form.is_valid():
+            if form.cleaned_data['option_type'] == 'basic':
+                BasicOption.objects.all().delete()
+                load_basic_options(form.cleaned_data['csv'].file)
+            elif form.cleaned_data['option_type'] == 'spread':
+                SpreadOption.objects.all().delete()
+                load_spread_options(form.cleaned_data['csv'].file)
+
+            return redirect('strategies:upload')
+    else:
+        form = CsvForm()
+
+    return render(request, 'strategies/upload.html', {
+        'form': form,
+    })

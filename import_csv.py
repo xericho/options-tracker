@@ -5,13 +5,13 @@ from django.contrib.auth import get_user_model
 from strategies.models import *
 
 
-def load_basic_options():
+def load_basic_options(csv_file):
     """
     You must have the TD Ameritrade and Robinhood brokers added
 
     from import_csv import load_basic_options; load_basic_options()
     """
-    df = pd.read_csv('./basic_options.csv')
+    df = pd.read_csv(csv_file)
     df = df.where(pd.notnull(df), None)
     td_broker = Broker.objects.get(pk=13)
     rh_broker = Broker.objects.get(pk=14)
@@ -40,11 +40,11 @@ def load_basic_options():
         )
 
 
-def load_spread_options():
+def load_spread_options(csv_file):
     """
     from import_csv import load_spread_options; load_spread_options()
     """
-    df = pd.read_csv('./spread_options.csv')
+    df = pd.read_csv(csv_file)
     df = df.where(pd.notnull(df), None)
     td_broker = Broker.objects.get(pk=13)
     rh_broker = Broker.objects.get(pk=14)
