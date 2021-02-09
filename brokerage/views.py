@@ -51,6 +51,7 @@ class BrokerDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return reverse('broker:manage')
 
 
+@login_required
 def manage(request):
     brokers = Broker.objects.filter(user=request.user).values()
     for b in brokers:
@@ -59,3 +60,5 @@ def manage(request):
     return render(request, 'brokerage/manage.html', {
         'brokers': brokers,
     })
+
+

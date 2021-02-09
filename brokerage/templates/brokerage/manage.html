@@ -50,6 +50,10 @@
                                <h6 class="card-subtitle mt-0 mb-2">{{ broker.broker }}</h6>
                                <h6 class="card-subtitle mb-2 text-muted">${{ broker.amount }}</h6>
                                <p class="card-text"></p>
+                               <button id='syncBtn' class="btn btn-sm btn-primary mr-2"
+                                    onclick='syncBroker("{{ broker.id }}", "{{ broker.name }}")'>
+                                   Sync <i class="mdi mdi-sync"></i>
+                               </button>
                                <a href="{% url 'broker:update' broker.id %}" class="card-link">Update</a>
                                <a href="{% url 'broker:delete' broker.id %}" class="card-link">Delete</a>
                             </div>
@@ -66,4 +70,23 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        function syncBroker(id, name) {
+            $.ajax({
+                url: '{% url "tda:sync" %}',
+                type: "GET",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    console.log(data)
+                    toastr.success(`Successfully synced ${name}!`)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    toastr.error(`Error: ${jqXHR.responseText}`)
+                }
+            });
+        }
+    </script>
 {% endblock javascripts %}

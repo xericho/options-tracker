@@ -17,8 +17,9 @@ class BrokerForm(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('broker', css_class='form-group col-md-6 mb-0'),
-                Column('open_date', css_class='form-group col-md-6 mb-0'),
+                Column('broker', css_class='form-group col-md-4 mb-0'),
+                Column('account_id', css_class='form-group col-md-4 mb-0'),
+                Column('open_date', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Submit')
@@ -26,4 +27,4 @@ class BrokerForm(forms.ModelForm):
 
     class Meta:
         model = Broker
-        fields = ('name', 'amount', 'broker', 'open_date')
+        fields = ('name', 'amount', 'broker', 'open_date', 'account_id')

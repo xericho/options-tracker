@@ -4,3 +4,5 @@ db.sqlite3
 .python-version
 basic_options.csv
 spread_options.csv
+token.json
+tda_transactions.json

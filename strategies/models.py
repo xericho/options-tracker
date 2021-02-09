@@ -22,6 +22,7 @@ class BasicOption(models.Model):
     broker = models.ForeignKey(Broker, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=9, choices=(('expired', 'Expired'), ('closed', 'Closed'), ('open', 'Open'), ('exercised', 'Exercised')), default='open')
     user = models.ForeignKey(get_user_model(), null=True, on_delete=models.CASCADE)
+    orderId = models.PositiveIntegerField(null=True)
 
 
 class SpreadOption(models.Model):
@@ -42,5 +43,6 @@ class SpreadOption(models.Model):
     broker = models.ForeignKey(Broker, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=9, choices=(('expired', 'Expired'), ('closed', 'Closed'), ('open', 'Open'), ('exercised', 'Exercised')), default='open')
     user = models.ForeignKey(get_user_model(), null=True, on_delete=models.CASCADE)
+    orderId = models.PositiveIntegerField(null=True)
 
 

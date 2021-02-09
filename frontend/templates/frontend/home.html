@@ -23,7 +23,17 @@
 {% block content %}
 
     <div class="row mb-3">
-      <div class="col-12">
+      {# <div class="col-4"> #}
+      {#   <div class="card card-chart"> #}
+      {#     <div class="card-header "> #}
+      {#         Rate of Return #}
+      {#     </div> #}
+      {#     <div class="card-body"> #}
+      {#         <h3>210%</h3> #}
+      {#     </div> #}
+      {#   </div> #}
+      {# </div> #}
+      <div class="col">
         <div class="card card-chart">
           <div class="card-header ">
             <div class="row">
@@ -204,6 +214,7 @@
                 }
                 return x;
             })
+
         }
 
     function build_gainers_ticker_chart(perf_gainers_ticker) { 
@@ -217,6 +228,7 @@
         let labelBullet = config_ticker_performance_chart(chart_ticker)
         labelBullet.label.horizontalCenter = "left";
         labelBullet.label.dx = 10;
+
     }
 
     function build_losers_ticker_chart(perf_losers_ticker) { 
@@ -282,6 +294,22 @@
         })
         // Disable zoom and panning
         chart_ticker.cursor.behavior = "none";
+
+        var cellSize = 30;
+        chart_ticker.events.on("datavalidated", function(ev) {
+              // Get objects of interest
+              var chart = ev.target;
+              var categoryAxis = chart.yAxes.getIndex(0);
+
+              // Calculate how we need to adjust chart height
+              var adjustHeight = chart.data.length * cellSize - categoryAxis.pixelHeight;
+
+              // get current chart height
+              var targetHeight = chart.pixelHeight + adjustHeight;
+
+              // Set it on chart's container
+              chart.svgContainer.htmlElement.style.height = targetHeight + "px";
+        });
 
         return labelBullet
     }
