@@ -6,3 +6,5 @@ basic_options.csv
 spread_options.csv
 token.json
 tda_transactions.json
+raw_tda_transactions.json
+tda_positions.json
